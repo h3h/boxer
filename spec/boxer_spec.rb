@@ -11,6 +11,20 @@ end
 
 describe Boxer do
 
+  describe ".boxes" do
+    before { Boxer.clear! }
+
+    it "tracks all defined boxes" do
+      Boxer.box(:foo) { {:working => true} }
+      Boxer.boxes.should have_key(:foo)
+    end
+
+    it "is initialized to an empty hash" do
+      Boxer.boxes.should eq({})
+    end
+
+  end
+
   describe ".box" do
     it "can create a box based on a simple hash" do
       Boxer.box(:foo) do
