@@ -25,15 +25,15 @@ class Boxer
   ## class methods
 
   def self.box(name, options={}, &block)
-    (@boxes ||= {})[name] = self.new(name, options, &block)
+    boxes[name] = self.new(name, options, &block)
   end
 
   def self.boxes
-    @boxes
+    @boxes ||= {}
   end
 
   def self.clear!
-    @boxes = {}
+    boxes.clear
   end
 
   def self.configure
@@ -41,8 +41,8 @@ class Boxer
   end
 
   def self.ship(name, *args)
-    fail "Unknown box: #{name.inspect}" unless @boxes.has_key?(name)
-    @boxes[name].ship(*args)
+    fail "Unknown box: #{name.inspect}" unless boxes.has_key?(name)
+    boxes[name].ship(*args)
   end
 
   ## instance methods
